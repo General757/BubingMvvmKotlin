@@ -1,0 +1,13 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.bubing.mvvmk">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application>
+        <provider
+            android:name="com.bubing.mvvmk.base.Ktx"
+            android:authorities="${applicationId}.KtxInstaller"
+            android:exported="false" />
+    </application>
+</manifest>

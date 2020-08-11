@@ -1,0 +1,24 @@
+package com.bubing.kotlin.data.model.bean
+
+import android.annotation.SuppressLint
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+/**
+ * @ClassName: BannerResponse
+ * @Author: Bubing
+ * @Date: 2020/8/7 2:26 PM
+ * @Description: 轮播图
+ */
+@SuppressLint("ParcelCreator")
+@Parcelize
+data class BannerResponse(
+    var desc: String = "",
+    var id: Int = 0,
+    var imagePath: String = "",
+    var isVisible: Int = 0,
+    var order: Int = 0,
+    var title: String = "",
+    var type: Int = 0,
+    var url: String = ""
+) : Parcelable

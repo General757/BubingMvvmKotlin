@@ -1,0 +1,73 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+//apply plugin: 'com.novoda.bintray-release'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    //kotlin
+    implementation rootProject.ext.support["kotlin-stdlib"]
+    implementation rootProject.ext.support["androidx-core-ktx"]
+    //AndroidX
+    api rootProject.ext.support["androidx-appcompat"]
+    //lifecycle
+    api rootProject.ext.dependencies["lifecycle-runtime"]
+    api rootProject.ext.dependencies["lifecycle-common-java8"]
+    api rootProject.ext.dependencies["lifecycle-extensions"]
+    //viewModel
+    api rootProject.ext.dependencies["lifecycle-viewmodel-ktx"]
+    api rootProject.ext.dependencies["fragment-ktx"]
+    //liveData
+    api rootProject.ext.dependencies["lifecycle-livedata-ktx"]
+    //navigation
+    api rootProject.ext.dependencies["navigation-runtime"]
+    //retrofit
+    api rootProject.ext.dependencies["retrofit"]
+    api rootProject.ext.dependencies["converter-gson"]
+    api rootProject.ext.dependencies["PersistentCookieJar"]
+    api rootProject.ext.dependencies["retrofit-url-manager"]
+}
+
+//publish {
+//    userOrg = 'ycy'//bintray网站中的用户名，网站链接：https://bintray.com/
+//    repoName = 'maven'//仓库名字-发布到Bintray的maven库
+//    groupId = 'com.bubing.mvvmk'//唯一标识（通常为模块包名，也可以任意）
+//    artifactId = 'JetpackMvvmKotlin'//项目名称（通常为类库模块名称，也可以任意）
+//    publishVersion = '1.0.0'//版本号 等于“com.bubing.mvvmk:1.0.0”中的 1.0.0
+//    desc = 'An Android Jetpack-MVVM framework,JetpackMvvm is nb'//说明，不重要的东西，随便写
+//    website = 'https://github.com/General757/JetpackMvvm'//项目主页，用GitHub地址
+//    licences = ['Apache-2.0']//协议
+//}

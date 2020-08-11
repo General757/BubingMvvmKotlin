@@ -1,0 +1,135 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
+
+    defaultConfig {
+        applicationId "com.bubing.kotlin"
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        multiDexEnabled true
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            shrinkResources false
+            zipAlignEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        release {
+            minifyEnabled true//开启混淆
+            shrinkResources true
+            zipAlignEnabled true//去除无用资源
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+    //使用Kotlin实验特性
+    androidExtensions {
+        experimental = true
+    }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+    lintOptions {
+        disable 'InvalidPackage'
+        disable "ResourceType"
+        abortOnError false
+    }
+    dexOptions {
+        javaMaxHeapSize "4g"
+        jumboMode = true
+        preDexLibraries = false
+        additionalParameters = [
+                '--multi-dex',//多分包
+                '--set-max-idx-number=60000'//每个包内方法数上限
+        ]
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    //kotlin
+    implementation rootProject.ext.support["kotlin-stdlib-jdk7"]
+    implementation rootProject.ext.support["androidx-core-ktx"]
+    //androidx UI
+    implementation rootProject.ext.support["androidx-appcompat"]
+    implementation rootProject.ext.support["androidx-constraintlayout"]
+    implementation rootProject.ext.support["androidx-cardview"]
+    implementation rootProject.ext.support["androidx-swiperefreshlayout"]
+    implementation rootProject.ext.support["androidx-preference"]
+    implementation rootProject.ext.support["material"]
+    //test
+    testImplementation rootProject.ext.support["junit"]
+    androidTestImplementation rootProject.ext.support["androidx-junit"]
+    androidTestImplementation rootProject.ext.support["androidx-espresso-core"]
+    implementation rootProject.ext.support["androidx-multidex"]
+    debugImplementation rootProject.ext.support["leakcanary-android"]
+
+    //dialog
+    implementation rootProject.ext.dependencies["material-dialogs-lifecycle"]
+    implementation rootProject.ext.dependencies["material-dialogs-core"]
+    implementation rootProject.ext.dependencies["material-dialogs-color"]
+    implementation rootProject.ext.dependencies["material-dialogs-datetime"]
+    implementation rootProject.ext.dependencies["material-dialogs-bottomsheets"]
+    //底部bottomBar
+    implementation rootProject.ext.dependencies["BottomNavigationViewEx"]
+    //RevealLayout
+    implementation rootProject.ext.dependencies["RevealLayout"]
+    //轮播图
+    implementation rootProject.ext.dependencies["BannerViewPager"]
+    //指示器库
+    implementation rootProject.ext.dependencies["MagicIndicator"]
+    //BaseAdapter
+    implementation rootProject.ext.dependencies["BaseRecyclerViewAdapterHelper"]
+    //第三方recyclerview
+    implementation rootProject.ext.dependencies["recyclerview"]
+    //加载webview
+    implementation rootProject.ext.dependencies["web-agentweb"]
+    implementation rootProject.ext.dependencies["web-filechooser"]
+    implementation rootProject.ext.dependencies["web-Downloader"]
+    //屏幕适配
+    implementation rootProject.ext.dependencies["jessyan-autosize"]
+    //管理界面状态库
+    implementation rootProject.ext.dependencies["loadsir"]
+    //glide
+    implementation rootProject.ext.dependencies["glide"]
+    //官方的
+    implementation rootProject.ext.dependencies["google-flexbox"]
+    //微信开源项目，替代SP
+    implementation rootProject.ext.dependencies["tencent-mmkv"]
+    //util
+    implementation rootProject.ext.dependencies["utilcodex"]
+    //下载
+    implementation(rootProject.ext.dependencies["liulishuo-filedownloader"]) {
+        exclude group: "com.android.support"
+    }
+    //Bugly
+    implementation rootProject.ext.dependencies["bugly-crashreport-upgrade"]
+    implementation rootProject.ext.dependencies["bugly-nativecrashreport"]
+    //防崩溃
+    implementation rootProject.ext.dependencies["customactivityoncrash"]
+    //项目核心框架
+    implementation project(":module_mvvm")
+}
